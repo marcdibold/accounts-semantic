@@ -18,10 +18,10 @@ class Form extends Accounts.ui.Form {
       fields,
       buttons,
       error,
-      message,
       ready = true,
       className,
-      formState
+      formState,
+      messages      
     } = this.props;
     return (
       <form ref={(ref) => this.form = ref} className={[ "accounts ui form", className ].join(' ')}>
@@ -60,7 +60,10 @@ class Form extends Accounts.ui.Form {
         { formState == STATES.SIGN_IN || formState == STATES.SIGN_UP ? (
             <Accounts.ui.SocialButtons oauthServices={ oauthServices } />
         ) : null }
-        <Accounts.ui.FormMessage className="ui message" style={{display: 'block'}} {...message} />
+        <Accounts.ui.FormMessage 
+          className="ui message" 
+          style={{display: 'block'}} 
+          messages={messages} />
       </form>
     );
   }
