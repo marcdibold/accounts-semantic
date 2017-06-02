@@ -60,9 +60,10 @@ class Form extends Accounts.ui.Form {
         { formState == STATES.SIGN_IN || formState == STATES.SIGN_UP ? (
           <Accounts.ui.SocialButtons oauthServices={ oauthServices } />
         ) : null }
-        <Accounts.ui.FormMessage 
-          className="ui message" 
-          style={{ display: 'block' }} 
+        )}
+        <Accounts.ui.FormMessages
+          className="ui message"
+          style={{ display: 'block' }}
           messages={messages}
         />
       </form>
@@ -203,7 +204,39 @@ class SocialButtons extends Accounts.ui.SocialButtons {
   }
 }
 
-class FormMessage extends Accounts.ui.FormMessage {}
+class FormMessage extends Accounts.ui.FormMessage {
+  render () {
+    let { message, type, className = "message", style = {} } = this.props;
+    message = _.isObject(message) ? message.message : message; // If message is object, then try to get message from it
+    return message && (
+      <div
+        className="ui message"
+        style={{ display: 'block' }}
+      >
+        {message}
+      </div>
+    );
+  }
+}
+
+class FormMessages extends Accounts.ui.FormMessages {
+  render () {
+    const { messages = [], className = "messages", style = {} } = this.props;
+    return messages.length > 0 && (
+      <div className="messages">
+        {messages
+          .map(({ message, type }, i) =>
+            <Accounts.ui.FormMessage
+              message={message}
+              type={type}
+              key={i}
+            />
+          )}
+      </div>
+    );
+  }
+}
+
 // Notice! Accounts.ui.LoginForm manages all state logic at the moment, so avoid
 // overwriting this one, but have a look at it and learn how it works. And pull
 // requests altering how that works are welcome.
@@ -216,6 +249,7 @@ Accounts.ui.Fields = Fields;
 Accounts.ui.Field = Field;
 Accounts.ui.PasswordOrService = PasswordOrService;
 Accounts.ui.SocialButtons = SocialButtons;
+Accounts.ui.FormMessages = FormMessages;
 Accounts.ui.FormMessage = FormMessage;
 
 // Export the themed version.
