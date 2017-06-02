@@ -21,45 +21,44 @@ class Form extends Accounts.ui.Form {
       ready = true,
       className,
       formState,
-      messages      
+      messages
     } = this.props;
     return (
       <form ref={(ref) => this.form = ref} className={[ "accounts ui form", className ].join(' ')}>
-        {Object.keys(fields).length > 0 ? (
+        {Object.keys(fields).length > 0 && (
           <Accounts.ui.Fields fields={ fields } />
-        ): null }
-        { buttons['switchToPasswordReset'] ? (
+        )}
+        {buttons['switchToPasswordReset'] && (
           <div className="field">
             <Accounts.ui.Button {...buttons['switchToPasswordReset']} />
           </div>
-        ): null }
+        )}
         {_.values(_.omit(buttons, 'switchToPasswordReset', 'switchToSignIn',
         'switchToSignUp', 'switchToChangePassword', 'switchToSignOut', 'signOut')).map((button, i) =>
           <Button {...button} key={i} />
         )}
-        { buttons['signOut'] ? (
+        {buttons['signOut'] && (
           <Button {...buttons['signOut']} type="submit" />
-        ): null }
-        { buttons['switchToSignIn'] ? (
+        )}
+        {buttons['switchToSignIn'] && (
           <Button {...buttons['switchToSignIn']} type="link" className="ui button" />
-        ): null }
-        { buttons['switchToSignUp'] ? (
+        )}
+        {buttons['switchToSignUp'] && (
           <Button {...buttons['switchToSignUp']} type="link" className="ui button" />
-        ): null }
-        { buttons['switchToChangePassword'] ? (
+        )}
+        {buttons['switchToChangePassword'] && (
           <Button {...buttons['switchToChangePassword']} type="link" className="ui button" />
-        ): null }
-        { buttons['switchToSignOut'] ? (
+        )}
+        {buttons['switchToSignOut'] && (
           <Button {...buttons['switchToSignOut']} type="link" className="ui button" />
-        ): null }
-        { formState == STATES.SIGN_IN || formState == STATES.SIGN_UP ? (
+        )}
+        {(formState == STATES.SIGN_IN || formState == STATES.SIGN_UP) && (
           <div className="or-sep">
             <Accounts.ui.PasswordOrService oauthServices={ oauthServices } />
           </div>
-        ) : null }
-        { formState == STATES.SIGN_IN || formState == STATES.SIGN_UP ? (
+        )}
+        {(formState == STATES.SIGN_IN || formState == STATES.SIGN_UP) && (
           <Accounts.ui.SocialButtons oauthServices={ oauthServices } />
-        ) : null }
         )}
         <Accounts.ui.FormMessages
           className="ui message"
