@@ -11,7 +11,7 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use('underscore');
   api.use('fourseven:scss@4.5.0');
-  api.use('std:accounts-ui@1.1.20');
+  api.use('std:accounts-ui@1.2.23');
 
   api.addFiles([
     'styles.scss'
